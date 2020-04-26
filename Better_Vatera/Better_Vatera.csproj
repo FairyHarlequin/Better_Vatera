@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinarisKeresoFa.cs" />
+    <Compile Include="Elado.cs" />
     <Compile Include="IElado.cs" />
-    <Compile Include="IKulcsErtekLista.cs" />
     <Compile Include="Jogiszemely.cs" />
+    <Compile Include="Kapcsolat.cs" />
     <Compile Include="LancoltLista.cs" />
     <Compile Include="Maganszemely.cs" />
     <Compile Include="Program.cs" />

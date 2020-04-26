@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Better_Vatera
 {
-    class LancoltLista<T, K> : IKulcsErtekLista<T, K>, IEnumerable, IEnumerator where K : IComparable where T : IComparable
+    class LancoltLista<T, K> : IEnumerable, IEnumerator where K : IComparable where T : IComparable
     {
         class ListaElem
         {

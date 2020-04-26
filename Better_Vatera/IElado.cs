@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Better_Vatera
 {
+    enum ertekeles { egy, ketto, harom, negy, ot }
     interface IElado
     {
-        int adoszam { get; set; }
-        string kontaktszemly { get; set; }
-        int ertekels { get; set; }
-    }
+        int Adoszam { get; set; }
+        string Kontaktszemely { get; set; }
+        ertekeles Ertekeles { get; set; }
+        List<Termek> TermekLista { get; set; }
+        Kapcsolat Kapcsolat { get; set; }
+    }  
 }

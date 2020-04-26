@@ -1,0 +1,7 @@
+D:\OneDrive\School\Egyetem\2019-2020 IV. Semester\Prog II\03 Házi Feladat\Beadandó\Better_Vatera\Better_Vatera\bin\Debug\Better_Vatera.exe.config
+D:\OneDrive\School\Egyetem\2019-2020 IV. Semester\Prog II\03 Házi Feladat\Beadandó\Better_Vatera\Better_Vatera\bin\Debug\Better_Vatera.exe
+D:\OneDrive\School\Egyetem\2019-2020 IV. Semester\Prog II\03 Házi Feladat\Beadandó\Better_Vatera\Better_Vatera\bin\Debug\Better_Vatera.pdb
+D:\OneDrive\School\Egyetem\2019-2020 IV. Semester\Prog II\03 Házi Feladat\Beadandó\Better_Vatera\Better_Vatera\obj\Debug\Better_Vatera.csprojAssemblyReference.cache
+D:\OneDrive\School\Egyetem\2019-2020 IV. Semester\Prog II\03 Házi Feladat\Beadandó\Better_Vatera\Better_Vatera\obj\Debug\Better_Vatera.csproj.CoreCompileInputs.cache
+D:\OneDrive\School\Egyetem\2019-2020 IV. Semester\Prog II\03 Házi Feladat\Beadandó\Better_Vatera\Better_Vatera\obj\Debug\Better_Vatera.exe
+D:\OneDrive\School\Egyetem\2019-2020 IV. Semester\Prog II\03 Házi Feladat\Beadandó\Better_Vatera\Better_Vatera\obj\Debug\Better_Vatera.pdb

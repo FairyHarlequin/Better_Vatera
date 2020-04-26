@@ -1,0 +1,2 @@
+1,Kiss Aladár,1234567891,Kiss Aladár,5,06301234567,kiss.aladar@gmail.com,1234 Levelezesi Cim utca 123,0611234567,0,ingyenes
+2,NagyBolt,1987654321,Kiss Aladár,4,06201234567,nagy.helga@gmail.com,4321 Cim Levelezesi utca 321,0617654321,1,fizetős
