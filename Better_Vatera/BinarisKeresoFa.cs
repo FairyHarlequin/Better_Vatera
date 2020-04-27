@@ -60,6 +60,7 @@ namespace Better_Vatera
             }
             else
             {
+                
                 throw new ArgumentException("Nincs ilyen elem a fában!");
             }
         }
@@ -85,13 +86,11 @@ namespace Better_Vatera
                 {
                     FaElem q = p;
                     p = p.jobb;
-                    // Felszabadit(ref q);
                 }
                 else if (p.jobb == null)
                 {
                     FaElem q = p;
                     p = p.bal;
-                    //Felszabadit(ref q);
                 }
                 else
                 {
@@ -103,11 +102,6 @@ namespace Better_Vatera
                 throw new ArgumentException("Nincs ilyen elem");
             }
         }
-
-        //private void Felszabadit(ref FaElem p)
-        //{
-        //    p = null;
-        //}
 
         private void TorlesKetGyerek(FaElem e, ref FaElem r)
         {
@@ -121,7 +115,6 @@ namespace Better_Vatera
                 e.kulcs = r.kulcs;
                 FaElem q = r;
                 r = r.bal;
-                //Felszabadit(ref q);
             }
         }
 
