@@ -10,7 +10,7 @@ namespace Better_Vatera
     {
         public string Nev { get; set; }
 
-        public Maganszemely(string nev, int adoszam, string kontaktszemely, ertekeles ertekeles, List<Termek> termekLista, Kapcsolat kapcsolat, string fizetos) : base(adoszam, kontaktszemely, ertekeles, termekLista, kapcsolat, fizetos)
+        public Maganszemely(string nev, int adoszam, string kontaktszemely, ertekeles ertekeles, LancoltLista<Termek> termekLista, Kapcsolat kapcsolat, string fizetos) : base(adoszam, kontaktszemely, ertekeles, termekLista, kapcsolat, fizetos)
         {
             this.Nev = nev;
         }

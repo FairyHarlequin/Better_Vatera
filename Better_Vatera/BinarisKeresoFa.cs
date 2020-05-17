@@ -13,6 +13,7 @@ namespace Better_Vatera
         {
             InOrder, PreOrder, PostOrder
         }
+        
         class FaElem
         {
             public T tartalom;
@@ -24,6 +25,7 @@ namespace Better_Vatera
         private FaElem gyoker;
 
         private BejarasModja bejaras;
+       
         public BejarasModja Bejaras
         {
             set
@@ -41,6 +43,7 @@ namespace Better_Vatera
         {
             if (p != null)
             {
+               
                 if (p.kulcs.CompareTo(kulcs) < 0)
                 {
                     //jobb
@@ -50,7 +53,6 @@ namespace Better_Vatera
                 {
                     //bal
                     return _Kereses(p.bal, kulcs);
-
                 }
                 else
                 {
@@ -59,8 +61,7 @@ namespace Better_Vatera
                 }
             }
             else
-            {
-                
+            {               
                 throw new ArgumentException("Nincs ilyen elem a fában!");
             }
         }
@@ -74,6 +75,7 @@ namespace Better_Vatera
         {
             if (p != null)
             {
+               
                 if (p.kulcs.CompareTo(kulcs) > 0)
                 {
                     _Torles(ref p.bal, kulcs);
@@ -123,6 +125,7 @@ namespace Better_Vatera
             get
             {
                 List<T> tmp = new List<T>();
+               
                 switch (bejaras)
                 {
                     case BejarasModja.InOrder:
@@ -156,6 +159,7 @@ namespace Better_Vatera
             }
             else
             {
+               
                 if (p.kulcs.CompareTo(kulcs) < 0)
                 {
                     //jobb részfába szúrunk be

@@ -4,101 +4,205 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.ComponentModel;
 
 namespace Better_Vatera
 {
     class Arukezelo
     {
-        public BinarisKeresoFa<Termek, string> fa = new BinarisKeresoFa<Termek, string>();
-        public List<Elado> eladoLista = new List<Elado>();
-        public List<Termek> termekLista = new List<Termek>();
-        public List<Maganszemely> maganszemelyLista = new List<Maganszemely>();
-        public List<Jogiszemely> jogiszemelyLista = new List<Jogiszemely>();
+        int _arLimit;
+        int _nemek = 0;
 
-        private void KeressEladoTermekeire()
+        public Arukezelo(int arLimit)
+        {
+            this._arLimit = arLimit;
+        }
+
+        public BinarisKeresoFa<Termek, string> fa = new BinarisKeresoFa<Termek, string>();
+        public LancoltLista<Elado> eladoLista = new LancoltLista<Elado>();
+        public LancoltLista<Termek> termekLista = new LancoltLista<Termek>();
+        public LancoltLista<Maganszemely> maganszemelyLista = new LancoltLista<Maganszemely>();
+        public LancoltLista<Jogiszemely> jogiszemelyLista = new LancoltLista<Jogiszemely>();
+        public LancoltLista<Termek> ingyenes = new LancoltLista<Termek>();
+        public Termek[] ingyensFelhasznalo;
+
+        public void Modok()
+        {
+            foreach (ListaElem<Elado> item in eladoLista)
+            {
+
+                if (item.Tartalom.Fizetos == "ingyenes")
+                {
+
+                    ingyensFelhasznalo = new Termek[item.Tartalom.TermekLista.count];
+                    int index = 0;
+
+                    foreach (ListaElem<Termek> item1 in item.Tartalom.TermekLista)
+                    {
+                        ingyensFelhasznalo[index] = item1.Tartalom;
+                        index++;
+                    }
+
+                    for (int i = ingyensFelhasznalo.Length-1; i > 0; i--)
+                    {
+                        int max = i;
+
+                        for (int j = 0; j <= i; j++)
+                        {
+
+                            if (ingyensFelhasznalo[j].Ar < ingyensFelhasznalo[max].Ar)
+                            {
+                                max = j;
+                            }
+                            else if (ingyensFelhasznalo[j].Ar == ingyensFelhasznalo[max].Ar)
+                            {
+                                if (int.Parse(ingyensFelhasznalo[j].HanyszorVasaroltakMeg) < int.Parse(ingyensFelhasznalo[max].HanyszorVasaroltakMeg))
+                                {
+                                    max = j;
+                                }
+                            }
+
+                            Termek maxtermek = ingyensFelhasznalo[i];
+                            ingyensFelhasznalo[i] = ingyensFelhasznalo[max];
+                            ingyensFelhasznalo[max] = maxtermek;
+                        }
+                    }
+
+                    item.Tartalom.TermekLista.ListaClear();
+                    double sum = 0;
+
+                    for (int k = 0; k < ingyensFelhasznalo.Length; k++)
+                    {
+
+                        if (sum + ingyensFelhasznalo[k].Ar <= _arLimit)
+                        {
+                            sum = sum + ingyensFelhasznalo[k].Ar;
+                            item.Tartalom.TermekLista.Beszur(ingyensFelhasznalo[k]);
+                        }
+                    }
+                }
+            }
+        }
+
+        //public void Modok()
+        //{
+        //    for (int k = 0; k < eladoLista.count; k++)
+        //    {
+        //        if (eladoLista[k].Fizetos == "ingyenes")
+        //        {
+
+        //            for (int i = eladoLista[k].TermekLista.Count - 1; i > 0; i--)
+        //            {
+
+        //                int max = i;
+        //                for (int j = 0; j <= i; j++)
+        //                {
+
+        //                    if (int.Parse(eladoLista[k].TermekLista[j].HanyszorVasaroltakMeg) < int.Parse(eladoLista[k].TermekLista[max].HanyszorVasaroltakMeg))
+        //                    {
+        //                        max = j;
+        //                    }
+        //                    Termek maxtermek = eladoLista[k].TermekLista[i];
+        //                    eladoLista[k].TermekLista[i] = eladoLista[k].TermekLista[max];
+        //                    eladoLista[k].TermekLista[max] = maxtermek;
+        //                }
+        //            }
+
+        //            if (eladoLista[k].TermekLista.Count > _maxDarabTemek)
+        //            {
+        //                eladoLista[k].TermekLista.RemoveRange(_maxDarabTemek, eladoLista[k].TermekLista.Count - _maxDarabTemek);
+        //            }
+        //        }
+        //    }
+        //}
+
+        private void _KeressEladoTermekeire()
         {
             Console.WriteLine("Melyik eladónak szeretnéd az összes áruját kilistázni: ");
             string eladoNeve = Console.ReadLine();
-            termekLista.Clear();
+            termekLista.ListaClear();
             bool talalt = false;
-            List<Termek> rendezett = new List<Termek>();
-            foreach (var item in maganszemelyLista)
+            LancoltLista<Termek> rendezett = new LancoltLista<Termek>();
+           
+            foreach (ListaElem<Maganszemely> item in maganszemelyLista)
             {
-                if (eladoNeve == item.Nev)
+               
+                if (eladoNeve == item.Tartalom.Nev)
                 {
-                    termekLista = new List<Termek>(item.TermekLista);
+                    termekLista = item.Tartalom.TermekLista;
                     talalt = true;
                 }
             }
-            foreach (var item in jogiszemelyLista)
+           
+            foreach (ListaElem<Jogiszemely> item in jogiszemelyLista)
             {
-                if (eladoNeve == item.CegNev)
+               
+                if (eladoNeve == item.Tartalom.CegNev)
                 {
-                    termekLista = new List<Termek>(item.TermekLista);
+                    termekLista = item.Tartalom.TermekLista;
                     talalt = true;
                 }
             }
+           
             if (talalt == false)
             {
                 throw new NincsIlyenEladoException("Nincs ilyen eladó");
             }
             else
             {
-                for (int j = 0; j < termekLista.Count; j++)
+               
+                //for (int j = 0; j < termekLista.count; j++)
+                //{
+                //    rendezett = _Rendezes(termekLista);
+                //}
+               
+                foreach (ListaElem<Termek> item in /*rendezett*/ termekLista)
                 {
-                    rendezett = Rendezes(termekLista);
-                }
-                foreach (Termek item in rendezett)
-                {
-                    item.Kiir();
+                    item.Tartalom.Kiir();
                 }
             }
         }
 
-        private List<Termek> Rendezes(List<Termek> termeklista)
-        {
-            List<Termek> rendezett = new List<Termek>();
+        //private LancoltLista<Termek> _Rendezes(LancoltLista<Termek> termeklista)
+        //{
+        //    LancoltLista<Termek> rtn = termekLista;
+           
+        //    for (int i = 1; i < rtn.Count; i++)
+        //    {
+        //        Termek kulcs = termekLista[i];
+        //        int j = i - 1;
+               
+        //        while (j>=0 && termekLista[j].Nev.CompareTo(kulcs.Nev) > 0)
+        //        {
+        //            rtn[j + 1] = rtn[j];
+        //            j = j - 1;
+        //        }
+        //        rtn[j + 1] = kulcs;
+        //    }
+           
+        //    return rtn;
 
-            for (int i = 0; i < termeklista.Count; i++)
-            {
-                if (i + 1 != termekLista.Count)
-                {
-                    rendezett.Add(new Termek());
-                    rendezett.Add(new Termek());
-                    if (termeklista[i].Nev.CompareTo(termeklista[i + 1].Nev) < 0 || termeklista[i].Nev.CompareTo(termeklista[i + 1].Nev) == 0)
-                    {
-                        rendezett[i] = termeklista[i];
-                        rendezett[i + 1] = termeklista[i + 1];
-                    }
-                    else if (termeklista[i].Nev.CompareTo(termeklista[i + 1].Nev) > 0)
-                    {
-                        rendezett[i] = termeklista[i + 1];
-                        rendezett[i + 1] = termeklista[i];
-                    }
-                }
-            }
-            for (int i = 0; i < rendezett.Count; i++)
-            {
-                if (rendezett[i].Nev == null)
-                {
-                    rendezett.RemoveAt(i);
-                }
-            }
-            return rendezett;
-        }
+        //}
 
         public void KeresesAkare()
         {
-            Console.WriteLine("Akarsz keresni? {0 - nem} {1 - igen, névre} {2 - igen, cikkszámra} {3 - Eladó neve alapján szeretnék termékeket kilistázni}");
+            Console.WriteLine("Válassz az alábbi menüpontok közül: \n{0 - nem} \n{1 - Termék nevére keresni} \n" + "{2 - Termék cikkszámára keresni} \n{3 - Eladó neve alapján termékeket kilistázni} \n{x - Kilépés a programból}");
             string keresse = Console.ReadLine();
+            
             switch (keresse)
             {
                 case "0":
+                    _nemek++;
+                   
+                    if (_nemek >= 3)
+                    {
+                        Console.WriteLine("\nLégyszi válassz valamit, vagy lépj ki.\n");
+                    }
                     break;
                 case "1":
                     try
                     {
-                        KeressNevre();
+                        _KeressNevre();
                     }
                     catch (NincsIlyenTermeknevException ex)
                     {
@@ -109,7 +213,7 @@ namespace Better_Vatera
                 case "2":
                     try
                     {
-                        KeressCikkszamra();
+                        _KeressCikkszamra();
                     }
                     catch (NincsIlyenCikkszamException ex)
                     {
@@ -120,7 +224,7 @@ namespace Better_Vatera
                 case "3":
                     try
                     {
-                        KeressEladoTermekeire();
+                        _KeressEladoTermekeire();
                     }
                     catch (NincsIlyenEladoException ex)
                     {
@@ -128,17 +232,23 @@ namespace Better_Vatera
                         KeresesAkare();
                     }
                     break;
+                case "x":
+                    Environment.Exit(0);
+                    break;
                 default:
-                    Console.WriteLine("Ebből a 4 számból válasszhatsz: {0} {1} {2} {3}");
+                    Console.WriteLine("Ezek közül válasszhatsz: {0} {1} {2} {3} {x}");
                     KeresesAkare();
                     break;
             }
+
+            KeresesAkare();
         }
 
-        private void KeressCikkszamra()
+        private void _KeressCikkszamra()
         {
             Console.WriteLine("Írja be a keresett termék cikkszámát: ");
             string KTCikkszama = Console.ReadLine();
+           
             try
             {
                 Termek KTCN = fa.Kereses(KTCikkszama);
@@ -150,44 +260,53 @@ namespace Better_Vatera
             }
         }
 
-        private void KeressNevre()
+        private void _KeressNevre()
         {
             Console.WriteLine("Írja be a keresett termék nevét: ");
             string KTNeve = Console.ReadLine();
-                string KTNevenekCikkszama = null;
-                bool nincs = true;
-                foreach (var item in fa)
+            
+            string KTNevenekCikkszama = null;
+            bool nincs = true;
+            
+            foreach (var item in fa)
+            {
+                
+                if (item.Nev == KTNeve)
                 {
-                    if (item.Nev == KTNeve)
-                    {
-                        nincs = false;
-                        KTNevenekCikkszama = item.Cikkszam;
-                        Termek KTNC = fa.Kereses(KTNevenekCikkszama);
-                        KTNC.Kiir();
-                    }
+                    nincs = false;
+                    KTNevenekCikkszama = item.Cikkszam;
+                    
+                    Termek KTNC = fa.Kereses(KTNevenekCikkszama);
+                    KTNC.Kiir();
                 }
-                if (nincs)
-                {
-                    throw new NincsIlyenTermeknevException("Nincs ilyen névvel felvett termék a listában!");
-                }
+            }
+            
+            if (nincs)
+            {
+                throw new NincsIlyenTermeknevException("Nincs ilyen névvel felvett termék a listában!");
+            }
         }
 
         public void Feltoltes()
         {
             StreamReader srT = new StreamReader("Termekek.txt");
+            
             while (!srT.EndOfStream)
             {
                 string[] helper1 = srT.ReadLine().Split(',');
-                Termek termek = new Termek(helper1[0], helper1[1], helper1[2], helper1[3]);
-                termekLista.Add(termek);
+                Termek termek = new Termek(helper1[0], helper1[1], helper1[2], double.Parse(helper1[3]), helper1[4]);
+                termekLista.Beszur(termek);
             }
+           
             srT.Close();
 
             StreamReader srE = new StreamReader("Eladok.txt");
+           
             while (!srE.EndOfStream)
             {
                 string[] helper2 = srE.ReadLine().Split(',');
                 ertekeles ertekeles = new ertekeles();
+               
                 switch (helper2[4])
                 {
                     case "1":
@@ -206,33 +325,39 @@ namespace Better_Vatera
                         ertekeles = ertekeles.ot;
                         break;
                 }
-                List<Termek> helperLista = new List<Termek>();
-                foreach (Termek item in termekLista)
+
+                LancoltLista<Termek> helperLista = new LancoltLista<Termek>();
+                
+                foreach (ListaElem<Termek> item in termekLista)
                 {
-                    if (item.Sorszam == helper2[0])
+                    
+                    if (item.Tartalom.Sorszam == helper2[0])
                     {
-                        helperLista.Add(item);
+                        helperLista.Beszur(item.Tartalom);
                     }
                 }
+
                 Kapcsolat kapcsolat = new Kapcsolat(helper2[5], helper2[6], helper2[7], helper2[8]);
                 Elado elado = new Elado();
+               
                 if (helper2[9] == "0")
                 {
                     elado = new Maganszemely(helper2[1], int.Parse(helper2[2]), helper2[1], ertekeles, helperLista, kapcsolat, helper2[10]);
-                    Listainit(helperLista, elado);
-                    maganszemelyLista.Add(elado as Maganszemely);
+                    _Listainit(helperLista, elado);
+                    maganszemelyLista.Beszur(elado as Maganszemely);
                 }
                 else if (helper2[9] == "1")
                 {
                     elado = new Jogiszemely(helper2[1], int.Parse(helper2[2]), helper2[3], ertekeles, helperLista, kapcsolat, helper2[10]);
-                    Listainit(helperLista, elado);
-                    jogiszemelyLista.Add(elado as Jogiszemely);
+                    _Listainit(helperLista, elado);
+                    jogiszemelyLista.Beszur(elado as Jogiszemely);
                 }
-                eladoLista.Add(elado);
+
+                eladoLista.Beszur(elado);
             }
             try
             {
-                KeresoFabaKerul(fa, termekLista);
+                _KeresoFabaKerul(fa, termekLista);
             }
             catch (NincsIlyenEladoException ex)
             {
@@ -242,23 +367,25 @@ namespace Better_Vatera
             srE.Close();
         }
 
-        private void Listainit(List<Termek> termek, Elado elado)
+        private void _Listainit(LancoltLista<Termek> termek, Elado elado)
         {
-            foreach (Termek item in termek)
+            foreach (ListaElem<Termek> item in termek)
             {
-                item.arusito = elado;
+                item.Tartalom.arusito = elado;
             }
         }
 
-        private void KeresoFabaKerul(BinarisKeresoFa<Termek, string> fa, List<Termek> termek)
+        private void _KeresoFabaKerul(BinarisKeresoFa<Termek, string> fa, LancoltLista<Termek> termek)
         {
-            foreach (Termek item in termek)
+            foreach (ListaElem<Termek> item in termek)
             {
-                if (item.arusito == null)
+               
+                if (item.Tartalom.arusito == null)
                 {
                     throw new NincsIlyenEladoException("Ehhez a termékhez nem tartozik eladó az eladó listában!");
                 }
-                fa.Beszuras(item, item.Cikkszam);
+
+                fa.Beszuras(item.Tartalom, item.Tartalom.Cikkszam);
             }
         }
     }

@@ -8,17 +8,17 @@ namespace Better_Vatera
 {
     class Kapcsolat
     {
-        string Telefonszam { get; set; }
-        string Email { get; set; }
-        string LevelezesiCim { get; set; }
-        string Fax { get; set; }
+        string _Telefonszam { get; set; }
+        string _Email { get; set; }
+        string _LevelezesiCim { get; set; }
+        string _Fax { get; set; }
 
         public Kapcsolat(string telefonszam, string email, string levelezesiCim, string fax)
         {
-            this.Telefonszam = telefonszam;
-            this.Email = email;
-            this.LevelezesiCim = levelezesiCim;
-            this.Fax = fax;
+            this._Telefonszam = telefonszam;
+            this._Email = email;
+            this._LevelezesiCim = levelezesiCim;
+            this._Fax = fax;
         }
     }
 }

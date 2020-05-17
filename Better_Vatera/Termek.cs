@@ -14,20 +14,22 @@ namespace Better_Vatera
         public string Sorszam { get; set; }
         public string Nev { get; set; }
         public string Cikkszam { get; set; }
-        string HanyszorVasaroltakMeg { get; set; }
+        public double Ar { get; set; }
+        public string HanyszorVasaroltakMeg { get; set; }
         public Elado arusito { get; set; }
 
-        public Termek(string sorszam = null, string nev = null, string cikkszam = null, string hanyszorVasaroltakMeg = null)
+        public Termek(string sorszam = null, string nev = null, string cikkszam = null, double ar = 0, string hanyszorVasaroltakMeg = null)
         {
             this.Sorszam = sorszam;
             this.Nev = nev;
             this.Cikkszam = cikkszam;
+            this.Ar = ar;
             this.HanyszorVasaroltakMeg = hanyszorVasaroltakMeg;
         }
 
         public void Kiir()
         {
-            Console.WriteLine($"A termék neve: {this.Nev}, Cikkszáma: {this.Cikkszam}, Hányszor vásárolták meg: {this.HanyszorVasaroltakMeg}");
+            Console.WriteLine($"A termék neve: {this.Nev}, Cikkszáma: {this.Cikkszam}, Ára: {this.Ar}, Hányszor vásárolták meg: {this.HanyszorVasaroltakMeg}");
         }
 
         public int CompareTo(Termek obj)
@@ -36,7 +38,9 @@ namespace Better_Vatera
             {
                 return 1;
             }
+
             Termek termek = obj as Termek;
+
             if (termek.Nev != null)
             {
                 return this.Nev.CompareTo(termek.Nev);

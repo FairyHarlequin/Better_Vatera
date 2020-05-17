@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arukezelo.cs" />
     <Compile Include="BinarisKeresoFa.cs" />
     <Compile Include="Elado.cs" />
     <Compile Include="IElado.cs" />
@@ -50,6 +51,10 @@
     <Compile Include="Kapcsolat.cs" />
     <Compile Include="LancoltLista.cs" />
     <Compile Include="Maganszemely.cs" />
+    <Compile Include="Kivételek\NincsIlyenCikkszamException.cs" />
+    <Compile Include="Kivételek\NincsIlyenEladoException.cs" />
+    <Compile Include="Kivételek\NincsIlyenTermeknevException.cs" />
+    <Compile Include="Kivételek\NincsIlyenElemException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Termek.cs" />
@@ -57,5 +62,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

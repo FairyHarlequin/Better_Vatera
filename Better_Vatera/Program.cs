@@ -11,11 +11,12 @@ namespace Better_Vatera
     {
         static void Main(string[] args)
         {
-            Arukezelo arukezelo = new Arukezelo();
+            Arukezelo arukezelo = new Arukezelo(900);
 
             arukezelo.Feltoltes();
+            arukezelo.Modok();
             arukezelo.KeresesAkare();
-
+            
             Console.ReadKey();
         }
     }

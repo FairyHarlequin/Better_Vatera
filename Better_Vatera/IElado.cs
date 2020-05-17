@@ -12,7 +12,7 @@ namespace Better_Vatera
         int Adoszam { get; set; }
         string Kontaktszemely { get; set; }
         ertekeles Ertekeles { get; set; }
-        List<Termek> TermekLista { get; set; }
+        LancoltLista<Termek> TermekLista { get; set; }
         Kapcsolat Kapcsolat { get; set; }
     }  
 }
